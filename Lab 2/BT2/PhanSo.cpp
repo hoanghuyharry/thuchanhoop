@@ -1,14 +1,6 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include "PhanSo.h"
 using namespace std;
-
-// Hàm tìm UCLN
-int UCLN(int a, int b)
-{
-    if(b == 0)
-       return a;
-    return UCLN(b, a % b);
-}
 
 // Hàm nhập phân số
 void PhanSo::Nhap()
@@ -41,7 +33,9 @@ void PhanSo::Xuat()
 // Hàm rút gọn phân số
 void PhanSo::RutGon()
 {
-    int ucln = UCLN(abs(iTu), abs(iMau));
+    if(iMau == 0)
+       return;
+    int ucln = __gcd(iTu, iMau);
     iTu /= ucln;
     iMau /= ucln;
 
@@ -53,43 +47,27 @@ void PhanSo::RutGon()
 }
 
 // Hàm tính Tổng
-PhanSo PhanSo::Tong(PhanSo ps)
+PhanSo PhanSo::Tong(const PhanSo &ps) const
 {
-    PhanSo kq;
-    kq.iTu = iTu * ps.iMau + ps.iTu * iMau;
-    kq.iMau = iMau * ps.iMau;
-    kq.RutGon();
-    return kq;
+    return PhanSo(iTu * ps.iMau + ps.iTu * iMau, iMau * ps.iMau);
 }
 
 // Hàm tính Hiệu
-PhanSo PhanSo::Hieu(PhanSo ps)
+PhanSo PhanSo::Hieu(const PhanSo &ps) const
 {
-    PhanSo kq;
-    kq.iTu = iTu * ps.iMau - ps.iTu * iMau;
-    kq.iMau = iMau * ps.iMau;
-    kq.RutGon();
-    return kq;
+    return PhanSo(iTu * ps.iMau - ps.iTu * iMau, iMau * ps.iMau);
 }
 
 // Hàm tính Tích
-PhanSo PhanSo::Tich(PhanSo ps)
+PhanSo PhanSo::Tich(const PhanSo &ps) const
 {
-    PhanSo kq;
-    kq.iTu = iTu * ps.iTu;
-    kq.iMau = iMau * ps.iMau;
-    kq.RutGon();
-    return kq;
+    return PhanSo(iTu * ps.iTu, iMau * ps.iMau);
 }
 
 // Hàm tính Thương
-PhanSo PhanSo::Thuong(PhanSo ps)
+PhanSo PhanSo::Thuong(const PhanSo &ps) const
 {
-    PhanSo kq;
-    kq.iTu = iTu * ps.iMau;
-    kq.iMau = iMau * ps.iTu;
-    kq.RutGon();
-    return kq;
+    return PhanSo(iTu * ps.iMau, iMau * ps.iTu);
 }
 
 // Hàm so sánh 2 phân số
@@ -97,8 +75,9 @@ int PhanSo::SoSanh(PhanSo ps)
 {
     int left = iTu * ps.iMau;
     int right = ps.iTu * iMau;
-
-    if (left > right) return 1;
-    if (left == right) return 0;
+    if(left > right)
+       return 1;
+    if(left == right)
+       return 0;
     return -1;
 }

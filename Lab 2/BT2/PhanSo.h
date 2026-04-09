@@ -13,10 +13,11 @@ public:
     void Xuat();
     void RutGon();
 
-    PhanSo Tong(PhanSo ps);
-    PhanSo Hieu(PhanSo ps);
-    PhanSo Tich(PhanSo ps);
-    PhanSo Thuong(PhanSo ps);
+    PhanSo(int t = 1, int m = 1) : iTu(t), iMau(m) {RutGon();}
+    PhanSo Tong(const PhanSo &ps) const;
+    PhanSo Hieu(const PhanSo &ps) const;
+    PhanSo Tich(const PhanSo &ps) const;
+    PhanSo Thuong(const PhanSo &ps) const;
 
     int SoSanh(PhanSo ps);
 };
